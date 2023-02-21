@@ -1,42 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
   <title>金扳手</title>
   <style>
-    body{ position: relative;  width: 100%;  max-width: 750px;  min-width: 320px;  margin: 0 auto; }
-    .main { padding: 0.2rem; }
-    .title { margin-bottom: 0.4rem; font-size: 24px; }
-    .serve-list { font-size: 18px; }
-    .serve-item { height: 0.8rem; line-height: 0.8rem; color: #3fa3bf; display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding:0 0.2rem; }
-    .serve-item.active {  color: #ffffff; background-color: #7c7f85; }
-    .serve-item span:last-child { font-weight: bold; }
-    .cont-tit { margin-bottom: 0.2rem;  font-size: 22px; }
-    .cont-info { text-indent: 2em; font-size: 16px; line-height: 30px; }
-    .cont-item {  display: none; }
-    .cont-item.active { display: block; }
+    body {
+      position: relative;
+      width: 100%;
+      max-width: 750px;
+      min-width: 320px;
+      margin: 0 auto;
+    }
+
+    .main {
+      padding: 0.2rem;
+    }
+
+    .title {
+      margin-bottom: 0.4rem;
+      font-size: 24px;
+    }
+
+    .serve-list {
+      font-size: 18px;
+    }
+
+    .serve-item {
+      height: 0.8rem;
+      line-height: 0.8rem;
+      color: #3fa3bf;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: 0 0.2rem;
+    }
+
+    .serve-item.active {
+      color: #ffffff;
+      background-color: #7c7f85;
+    }
+
+    .serve-item span:last-child {
+      font-weight: bold;
+    }
+
+    .cont-tit {
+      margin-bottom: 0.2rem;
+      font-size: 22px;
+    }
+
+    .cont-info {
+      text-indent: 2em;
+      font-size: 16px;
+      line-height: 30px;
+    }
+
+    .cont-item {
+      display: none;
+    }
+
+    .cont-item.active {
+      display: block;
+    }
   </style>
   <script>
     (function (doc, win) {
       var docEl = doc.documentElement,
-          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-          recalc = function () {
-              var clientWidth = docEl.clientWidth;
-              if (!clientWidth) return;
-              if(clientWidth>=750){
-                  docEl.style.fontSize = '100px';
-              }else{
-                  docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
-              }
-          };
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function () {
+          var clientWidth = docEl.clientWidth;
+          if (!clientWidth) return;
+          if (clientWidth >= 750) {
+            docEl.style.fontSize = '100px';
+          } else {
+            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+          }
+        };
       if (!doc.addEventListener) return;
       win.addEventListener(resizeEvt, recalc, false);
       doc.addEventListener('DOMContentLoaded', recalc, false);
     })(document, window);
   </script>
 </head>
+
 <body>
   <div class="main">
     <h3 class="title">第三方维保</h3>
@@ -61,11 +111,26 @@
     </div>
   </div>
 </body>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
- $('.serve-list .serve-item').click(function(){
-    $(this).addClass('active').siblings('.serve-item').removeClass('active');
-    $('.cont-list').find('.cont-item').eq($(this).index()).addClass('active').siblings('.cont-item').removeClass('active');
- } )
+  var serveList = document.querySelector('.serve-list');
+  var serveItems = serveList.querySelectorAll('.serve-item');
+  var contItems = document.querySelectorAll('.cont-item');
+  for (let i = 0; i < serveItems.length; i++) {
+    serveItems[i].setAttribute('data-index', i);
+    
+    serveItems[i].onclick = function () {
+      for (let j = 0; j < serveItems.length; j++) {
+        serveItems[j].className = 'serve-item';
+      }
+      this.className = 'serve-item active'
+
+      var index = this.getAttribute('data-index');
+      for (let j = 0; j < contItems.length; j++) {
+        contItems[j].className = 'cont-item';
+      }
+      contItems[index].className= 'cont-item active';
+    }
+  }
 </script>
+
 </html>
