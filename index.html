@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
+  <title>金扳手</title>
+  <style>
+    body{ position: relative;  width: 100%;  max-width: 750px;  min-width: 320px;  margin: 0 auto; }
+    .main { padding: 0.2rem; }
+    .title { margin-bottom: 0.4rem; font-size: 24px; }
+    .serve-list { font-size: 18px; }
+    .serve-item { height: 0.8rem; line-height: 0.8rem; color: #3fa3bf; display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding:0 0.2rem; }
+    .serve-item.active {  color: #ffffff; background-color: #7c7f85; }
+    .serve-item span:last-child { font-weight: bold; }
+    .cont-tit { margin-bottom: 0.2rem;  font-size: 22px; }
+    .cont-info { text-indent: 2em; font-size: 16px; line-height: 30px; }
+    .cont-item {  display: none; }
+    .cont-item.active { display: block; }
+  </style>
+  <script>
+    (function (doc, win) {
+      var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+          recalc = function () {
+              var clientWidth = docEl.clientWidth;
+              if (!clientWidth) return;
+              if(clientWidth>=750){
+                  docEl.style.fontSize = '100px';
+              }else{
+                  docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+              }
+          };
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+  </script>
+</head>
+<body>
+  <div class="main">
+    <h3 class="title">第三方维保</h3>
+    <div class="serve-list">
+      <div class="serve-item active"><span>人员驻场运维</span><span>></span></div>
+      <div class="serve-item"><span>设备安装维修</span><span>></span></div>
+    </div>
+    <div class="cont-list">
+      <div class="cont-item active">
+        <h3 class="cont-tit">人员驻场运维</h3>
+        <p class="cont-info">
+          随着用户对于运维服务的主动性、时效性，对服务质量要求的提高，人员驻场运维已经成为目前运维的主流，我公司提供如下三种人员驻场运维服务模式，
+          人员+技术支持服务、人员+技术支持服务+备件支持、人员代甲方维护，多种模式带来更加灵活的选择和更经济有效的成本支出，您可按照您的实际需求选择适合的模式。
+        </p>
+      </div>
+      <div class="cont-item">
+        <h3 class="cont-tit">设备安装维修</h3>
+        <p class="cont-info">
+          主要监控、输送线、物流设备、电子设备等安装。维修监控、输送线、叉车、制冷设备等。
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+ $('.serve-list .serve-item').click(function(){
+    $(this).addClass('active').siblings('.serve-item').removeClass('active');
+    $('.cont-list').find('.cont-item').eq($(this).index()).addClass('active').siblings('.cont-item').removeClass('active');
+ } )
+</script>
+</html>
